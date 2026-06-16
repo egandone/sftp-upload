@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SFTP Upload</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 2rem auto; }
+        .flash-success { color: #116329; }
+        .flash-error { color: #a22; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { border-bottom: 1px solid #ddd; padding: 0.5rem; text-align: left; }
+    </style>
+</head>
+<body>
+<h1>SFTP File Storage</h1>
+
+<p class="flash-success" th:if="${message}" th:text="${message}"></p>
+<p class="flash-error" th:if="${error}" th:text="${error}"></p>
+
+<form method="post" action="/upload" enctype="multipart/form-data">
+    <label for="file">Upload file:</label>
+    <input id="file" name="file" type="file" required>
+    <button type="submit">Upload</button>
+</form>
+
+<h2>Uploaded files</h2>
+<table>
+    <thead>
+    <tr>
+        <th>File name</th>
+        <th>Size (bytes)</th>
+        <th>Last modified</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${#lists.isEmpty(files)}">
+        <td colspan="4">No files found.</td>
+    </tr>
+    <tr th:each="file : ${files}">
+        <td th:text="${file.name()}"></td>
+        <td th:text="${file.size()}"></td>
+        <td th:text="${file.modifiedAt()}"></td>
+        <td><a th:href="@{|/files/${file.name()}|}">Download</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
