@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: sftp-upload
+
+app:
+  sftp:
+    host: ${SFTP_HOST:localhost}
+    port: ${SFTP_PORT:22}
+    username: ${SFTP_USERNAME:devuser}
+    password: ${SFTP_PASSWORD:}
+    private-key-location: ${SFTP_PRIVATE_KEY_LOCATION:}
+    private-key-passphrase: ${SFTP_PRIVATE_KEY_PASSPHRASE:}
+    remote-directory: ${SFTP_REMOTE_DIRECTORY:/uploads}
+    allow-unknown-keys: ${SFTP_ALLOW_UNKNOWN_KEYS:true}
